@@ -12,5 +12,12 @@ export default {
       .then(function(response) { return response.json() })
       .then(function(data) { onSuccess(data) })
       .catch(function(error) { onError(error)})
+  },
+
+  getMovie(movie, onSuccess, onError){
+    fetch('https://api.myjson.com/bins/1jf9u')
+      .then(function(response) { return response.json()})
+      .then(function(data) { onSuccess(data)})
+      .catch(function(error) { onError(error)})
   }
 }

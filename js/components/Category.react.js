@@ -2,6 +2,7 @@ import React from 'react'
 
 import api from '../api/api'
 import NowHeader from './NowHeader.react'
+import MovieCard from './MovieCard.react'
 
 class Category extends React.Component {
   constructor(){
@@ -30,34 +31,5 @@ class Category extends React.Component {
     )
   }
 }
-
-class MovieCard extends React.Component {
-  constructor(){
-      super()
-
-  }
-
-  render(){
-    var rows = [];
-    for (var i=0; i < this.props.raiting; i++) {
-        rows.push(<span>*</span>);
-    }
-
-
-    return(
-      <div className="movie-card">
-        <img src={this.props.image} />
-        <div className="text">
-          <div>{this.props.title}</div>
-          <div>Stars:{rows}</div>
-          <div>Year:{this.props.year}</div>
-          <div>{this.props.certificate}</div>
-        </div>
-      </div>
-    )
-  }
-
-}
-
 
 export default Category

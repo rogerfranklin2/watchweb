@@ -17,7 +17,6 @@ class CategoryListing extends React.Component {
   }
 
   _goToCategory(){
-    console.log("CLICKING")
     this.context.router.transitionTo('/category/' + this.props.id);
 
   }

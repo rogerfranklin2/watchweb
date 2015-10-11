@@ -68,10 +68,15 @@
 
 	var _componentsCategoryReact2 = _interopRequireDefault(_componentsCategoryReact);
 
+	var _componentsMovieReact = __webpack_require__(207);
+
+	var _componentsMovieReact2 = _interopRequireDefault(_componentsMovieReact);
+
 	var routes = _react2['default'].createElement(
 	    _reactRouter.Route,
 	    { path: '/' },
 	    _react2['default'].createElement(_reactRouter.Route, { path: 'category/:category', handler: _componentsCategoryReact2['default'] }),
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'movie/:movie', handler: _componentsMovieReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsAppReact2['default'] })
 	);
 
@@ -24101,7 +24106,6 @@
 	  }, {
 	    key: "_goToCategory",
 	    value: function _goToCategory() {
-	      console.log("CLICKING");
 	      this.context.router.transitionTo('/category/' + this.props.id);
 	    }
 	  }]);
@@ -24145,6 +24149,16 @@
 	    })["catch"](function (error) {
 	      onError(error);
 	    });
+	  },
+
+	  getMovie: function getMovie(movie, onSuccess, onError) {
+	    fetch('https://api.myjson.com/bins/1jf9u').then(function (response) {
+	      return response.json();
+	    }).then(function (data) {
+	      onSuccess(data);
+	    })["catch"](function (error) {
+	      onError(error);
+	    });
 	  }
 	};
 	module.exports = exports["default"];
@@ -24180,6 +24194,10 @@
 	var _NowHeaderReact = __webpack_require__(202);
 
 	var _NowHeaderReact2 = _interopRequireDefault(_NowHeaderReact);
+
+	var _MovieCardReact = __webpack_require__(206);
+
+	var _MovieCardReact2 = _interopRequireDefault(_MovieCardReact);
 
 	var Category = (function (_React$Component) {
 	  _inherits(Category, _React$Component);
@@ -24221,7 +24239,7 @@
 	          ' Movies'
 	        ),
 	        this.state.movies.map(function (movie) {
-	          return _react2['default'].createElement(MovieCard, movie);
+	          return _react2['default'].createElement(_MovieCardReact2['default'], movie);
 	        })
 	      );
 	    }
@@ -24230,65 +24248,204 @@
 	  return Category;
 	})(_react2['default'].Component);
 
-	var MovieCard = (function (_React$Component2) {
-	  _inherits(MovieCard, _React$Component2);
+	exports['default'] = Category;
+	module.exports = exports['default'];
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var MovieCard = (function (_React$Component) {
+	  _inherits(MovieCard, _React$Component);
 
 	  function MovieCard() {
 	    _classCallCheck(this, MovieCard);
 
-	    _get(Object.getPrototypeOf(MovieCard.prototype), 'constructor', this).call(this);
+	    _get(Object.getPrototypeOf(MovieCard.prototype), "constructor", this).call(this);
+	    this._goToMovie = this._goToMovie.bind(this);
 	  }
 
 	  _createClass(MovieCard, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var rows = [];
 	      for (var i = 0; i < this.props.raiting; i++) {
-	        rows.push(_react2['default'].createElement(
-	          'span',
+	        rows.push(_react2["default"].createElement(
+	          "span",
 	          null,
-	          '*'
+	          "*"
 	        ));
 	      }
 
-	      return _react2['default'].createElement(
-	        'div',
-	        { className: 'movie-card' },
-	        _react2['default'].createElement('img', { src: this.props.image }),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'text' },
-	          _react2['default'].createElement(
-	            'div',
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: "movie-card", onClick: this._goToMovie },
+	        _react2["default"].createElement("img", { src: this.props.image }),
+	        _react2["default"].createElement(
+	          "div",
+	          { className: "text" },
+	          _react2["default"].createElement(
+	            "div",
 	            null,
 	            this.props.title
 	          ),
-	          _react2['default'].createElement(
-	            'div',
+	          _react2["default"].createElement(
+	            "div",
 	            null,
-	            'Stars:',
+	            "Stars:",
 	            rows
 	          ),
-	          _react2['default'].createElement(
-	            'div',
+	          _react2["default"].createElement(
+	            "div",
 	            null,
-	            'Year:',
+	            "Year:",
 	            this.props.year
 	          ),
-	          _react2['default'].createElement(
-	            'div',
+	          _react2["default"].createElement(
+	            "div",
 	            null,
 	            this.props.certificate
 	          )
 	        )
 	      );
 	    }
+	  }, {
+	    key: "_goToMovie",
+	    value: function _goToMovie() {
+	      console.log("CLICKINGGGG");
+	      this.context.router.transitionTo('/movie/' + this.props.title.split(' ').join('_'));
+	    }
 	  }]);
 
 	  return MovieCard;
+	})(_react2["default"].Component);
+
+	MovieCard.contextTypes = {
+	  router: _react2["default"].PropTypes.func.isRequired
+	};
+
+	exports["default"] = MovieCard;
+	module.exports = exports["default"];
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _apiApi = __webpack_require__(204);
+
+	var _apiApi2 = _interopRequireDefault(_apiApi);
+
+	var Movie = (function (_React$Component) {
+	  _inherits(Movie, _React$Component);
+
+	  function Movie() {
+	    _classCallCheck(this, Movie);
+
+	    _get(Object.getPrototypeOf(Movie.prototype), 'constructor', this).call(this);
+	    this.state = {
+	      movie: ''
+	    };
+	  }
+
+	  _createClass(Movie, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this = this;
+
+	      _apiApi2['default'].getMovie(this.props.params.movieid, function (data) {
+	        _this.setState({ movie: data });
+	      }, function (error) {
+	        console.log(error);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement('img', { src: this.state.movie.image }),
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _react2['default'].createElement(
+	            'h3',
+	            null,
+	            this.state.movie.title
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            _react2['default'].createElement(
+	              'span',
+	              null,
+	              this.state.movie.year
+	            ),
+	            _react2['default'].createElement(
+	              'span',
+	              null,
+	              this.state.movie.duration
+	            ),
+	            _react2['default'].createElement(
+	              'span',
+	              null,
+	              this.state.movie.rating
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            this.state.movie.blurb
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Movie;
 	})(_react2['default'].Component);
 
-	exports['default'] = Category;
+	exports['default'] = Movie;
 	module.exports = exports['default'];
 
 /***/ }
