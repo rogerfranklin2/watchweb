@@ -64,9 +64,14 @@
 
 	var _componentsAppReact2 = _interopRequireDefault(_componentsAppReact);
 
+	var _componentsCategoryReact = __webpack_require__(205);
+
+	var _componentsCategoryReact2 = _interopRequireDefault(_componentsCategoryReact);
+
 	var routes = _react2['default'].createElement(
 	    _reactRouter.Route,
-	    { handler: _componentsAppReact2['default'], path: '/' },
+	    { path: '/' },
+	    _react2['default'].createElement(_reactRouter.Route, { path: 'category/:category', handler: _componentsCategoryReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsAppReact2['default'] })
 	);
 
@@ -23592,7 +23597,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: nowtvRegular; }\n\nheader {\n  height: 60px;\n  background-color: #37AC47;\n  display: flex;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding: 15px; }\n  header i {\n    color: white; }\n  header svg {\n    height: 32px; }\n\n.category {\n  width: 100%;\n  position: relative;\n  color: white; }\n  .category img {\n    width: 100%; }\n  .category .category-title {\n    left: 0;\n    position: absolute;\n    text-align: center;\n    top: 50%;\n    width: 100%; }\n  .category .category-number {\n    left: 30px;\n    position: absolute;\n    text-align: left;\n    top: 85%;\n    width: 100%; }\n\n@font-face {\n  font-family: nowtvRegular;\n  src: url(" + __webpack_require__(199) + "); }\n", ""]);
+	exports.push([module.id, "* {\n  font-family: nowtvRegular; }\n\nheader {\n  height: 60px;\n  background-color: #37AC47;\n  display: flex;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding: 15px; }\n  header i {\n    color: white; }\n  header svg {\n    height: 32px; }\n\n.category {\n  width: 100%;\n  position: relative;\n  color: white; }\n  .category img {\n    width: 100%; }\n  .category .category-title {\n    left: 0;\n    position: absolute;\n    text-align: center;\n    top: 50%;\n    width: 100%; }\n  .category .category-number {\n    left: 30px;\n    position: absolute;\n    text-align: left;\n    top: 85%;\n    width: 100%; }\n\n.category-list {\n  color: #424248;\n  text-align: center; }\n\n.movie-card {\n  width: 100%; }\n  .movie-card img {\n    width: 100%; }\n\n@font-face {\n  font-family: nowtvRegular;\n  src: url(" + __webpack_require__(199) + "); }\n", ""]);
 
 	// exports
 
@@ -23912,7 +23917,11 @@
 
 	var _NowHeaderReact2 = _interopRequireDefault(_NowHeaderReact);
 
-	var _apiApi = __webpack_require__(203);
+	var _CategoryListingReact = __webpack_require__(203);
+
+	var _CategoryListingReact2 = _interopRequireDefault(_CategoryListingReact);
+
+	var _apiApi = __webpack_require__(204);
 
 	var _apiApi2 = _interopRequireDefault(_apiApi);
 
@@ -23961,7 +23970,8 @@
 	          'div',
 	          { className: 'movie-categories' },
 	          this.state.categories.map(function (category) {
-	            return _react2['default'].createElement(Category, {
+	            return _react2['default'].createElement(_CategoryListingReact2['default'], {
+	              id: category.id,
 	              image: category.image,
 	              title: category.title,
 	              number: category.number
@@ -23974,62 +23984,6 @@
 
 	  return App;
 	})(_react2['default'].Component);
-
-	var Category = (function (_React$Component2) {
-	  _inherits(Category, _React$Component2);
-
-	  function Category() {
-	    _classCallCheck(this, Category);
-
-	    _get(Object.getPrototypeOf(Category.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(Category, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        { className: 'category' },
-	        _react2['default'].createElement('img', { src: this.props.image }),
-	        _react2['default'].createElement(
-	          'span',
-	          { className: 'category-title' },
-	          this.props.title
-	        ),
-	        _react2['default'].createElement(
-	          'span',
-	          { className: 'category-number' },
-	          this.props.number,
-	          ' movies'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Category;
-	})(_react2['default'].Component);
-
-	var categories = [{
-	  title: "Hot Right Now",
-	  number: 40,
-	  image: ""
-	}, {
-	  title: "Superheroes",
-	  number: 15,
-	  image: "http://client.nowtv.com/image/19d88b80a9aeb410VgnVCM1000000b43150a____/1280/720/jpg"
-	}, {
-	  title: "Action",
-	  number: 25,
-	  image: "http://client.nowtv.com/image/11442c80204cd410VgnVCM1000000b43150a____/1280/720/jpg"
-	}, {
-	  title: "Comedy",
-	  number: 20,
-	  image: "http://client.nowtv.com/image/b9edf3e7f3f5b410VgnVCM1000000b43150a____/1280/720/jpg"
-	}, {
-	  title: "Sci-Fi & Fantasy",
-	  number: 30,
-	  image: "http://client.nowtv.com/image/c5eb9c61d87cc410VgnVCM1000000b43150a____/1280/720/jpg"
-	}];
 
 	exports['default'] = App;
 	module.exports = exports['default'];
@@ -24092,6 +24046,78 @@
 
 /***/ },
 /* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var CategoryListing = (function (_React$Component) {
+	  _inherits(CategoryListing, _React$Component);
+
+	  function CategoryListing() {
+	    _classCallCheck(this, CategoryListing);
+
+	    _get(Object.getPrototypeOf(CategoryListing.prototype), "constructor", this).call(this);
+	    this._goToCategory = this._goToCategory.bind(this);
+	  }
+
+	  _createClass(CategoryListing, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: "category", onClick: this._goToCategory },
+	        _react2["default"].createElement("img", { src: this.props.image }),
+	        _react2["default"].createElement(
+	          "span",
+	          { className: "category-title" },
+	          this.props.title
+	        ),
+	        _react2["default"].createElement(
+	          "span",
+	          { className: "category-number" },
+	          this.props.number,
+	          " movies"
+	        )
+	      );
+	    }
+	  }, {
+	    key: "_goToCategory",
+	    value: function _goToCategory() {
+	      console.log("CLICKING");
+	      this.context.router.transitionTo('/category/' + this.props.id);
+	    }
+	  }]);
+
+	  return CategoryListing;
+	})(_react2["default"].Component);
+
+	CategoryListing.contextTypes = {
+	  router: _react2["default"].PropTypes.func.isRequired
+	};
+
+	exports["default"] = CategoryListing;
+	module.exports = exports["default"];
+
+/***/ },
+/* 204 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24101,7 +24127,18 @@
 	});
 	exports["default"] = {
 	  getCategories: function getCategories(onSuccess, onError) {
-	    fetch("https://api.myjson.com/bins/3npey").then(function (response) {
+	    fetch("https://api.myjson.com/bins/2v08i").then(function (response) {
+	      return response.json();
+	    }).then(function (data) {
+	      onSuccess(data);
+	    })["catch"](function (error) {
+	      onError(error);
+	    });
+	  },
+
+	  getMoviesForCategory: function getMoviesForCategory(category, onSuccess, onError) {
+	    //dynamic url based on category
+	    fetch("https://api.myjson.com/bins/2n2qq").then(function (response) {
 	      return response.json();
 	    }).then(function (data) {
 	      onSuccess(data);
@@ -24111,6 +24148,118 @@
 	  }
 	};
 	module.exports = exports["default"];
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _apiApi = __webpack_require__(204);
+
+	var _apiApi2 = _interopRequireDefault(_apiApi);
+
+	var _NowHeaderReact = __webpack_require__(202);
+
+	var _NowHeaderReact2 = _interopRequireDefault(_NowHeaderReact);
+
+	var Category = (function (_React$Component) {
+	  _inherits(Category, _React$Component);
+
+	  function Category() {
+	    _classCallCheck(this, Category);
+
+	    _get(Object.getPrototypeOf(Category.prototype), 'constructor', this).call(this);
+	    console.log(this.state);
+	    this.state = {
+	      id: '',
+	      movies: []
+	    };
+	  }
+
+	  _createClass(Category, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this = this;
+
+	      _apiApi2['default'].getMoviesForCategory(this.state.id, function (data) {
+	        _this.setState({ movies: data });
+	      }, function (error) {
+	        console.log(error);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var category = this.props.params.category.charAt(0).toUpperCase() + this.props.params.category.slice(1);
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'category-list' },
+	        _react2['default'].createElement(_NowHeaderReact2['default'], null),
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          category,
+	          ' Movies'
+	        ),
+	        this.state.movies.map(function (movie) {
+	          return _react2['default'].createElement(MovieCard, movie);
+	        })
+	      );
+	    }
+	  }]);
+
+	  return Category;
+	})(_react2['default'].Component);
+
+	var MovieCard = (function (_React$Component2) {
+	  _inherits(MovieCard, _React$Component2);
+
+	  function MovieCard() {
+	    _classCallCheck(this, MovieCard);
+
+	    _get(Object.getPrototypeOf(MovieCard.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(MovieCard, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'movie-card' },
+	        _react2['default'].createElement('img', { src: this.props.image }),
+	        _react2['default'].createElement(
+	          'span',
+	          null,
+	          this.props.title
+	        )
+	      );
+	    }
+	  }]);
+
+	  return MovieCard;
+	})(_react2['default'].Component);
+
+	exports['default'] = Category;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
