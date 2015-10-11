@@ -23597,7 +23597,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: nowtvRegular; }\n\nheader {\n  height: 60px;\n  background-color: #37AC47;\n  display: flex;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding: 15px; }\n  header i {\n    color: white; }\n  header svg {\n    height: 32px; }\n\n.category {\n  width: 100%;\n  position: relative;\n  color: white; }\n  .category img {\n    width: 100%; }\n  .category .category-title {\n    left: 0;\n    position: absolute;\n    text-align: center;\n    top: 50%;\n    width: 100%; }\n  .category .category-number {\n    left: 30px;\n    position: absolute;\n    text-align: left;\n    top: 85%;\n    width: 100%; }\n\n.category-list {\n  color: #424248;\n  text-align: center; }\n\n.movie-card {\n  width: 100%; }\n  .movie-card img {\n    width: 100%; }\n\n@font-face {\n  font-family: nowtvRegular;\n  src: url(" + __webpack_require__(199) + "); }\n", ""]);
+	exports.push([module.id, "* {\n  font-family: nowtvRegular; }\n\nheader {\n  height: 60px;\n  background-color: #37AC47;\n  display: flex;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding: 15px; }\n  header i {\n    color: white; }\n  header svg {\n    height: 32px; }\n\n.category {\n  width: 100%;\n  position: relative;\n  color: white; }\n  .category img {\n    width: 100%; }\n  .category .category-title {\n    left: 0;\n    position: absolute;\n    text-align: center;\n    top: 50%;\n    width: 100%; }\n  .category .category-number {\n    left: 30px;\n    position: absolute;\n    text-align: left;\n    top: 85%;\n    width: 100%; }\n\n.category-list {\n  color: #424248;\n  text-align: center; }\n\n.movie-card {\n  color: white;\n  position: relative;\n  width: 100%; }\n  .movie-card .text {\n    left: 0;\n    position: absolute;\n    text-align: center;\n    top: 50%;\n    width: 100%; }\n  .movie-card img {\n    width: 100%; }\n\n@font-face {\n  font-family: nowtvRegular;\n  src: url(" + __webpack_require__(199) + "); }\n", ""]);
 
 	// exports
 
@@ -24236,20 +24236,50 @@
 	  function MovieCard() {
 	    _classCallCheck(this, MovieCard);
 
-	    _get(Object.getPrototypeOf(MovieCard.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(MovieCard.prototype), 'constructor', this).call(this);
 	  }
 
 	  _createClass(MovieCard, [{
 	    key: 'render',
 	    value: function render() {
+	      var rows = [];
+	      for (var i = 0; i < this.props.raiting; i++) {
+	        rows.push(_react2['default'].createElement(
+	          'span',
+	          null,
+	          '*'
+	        ));
+	      }
+
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'movie-card' },
 	        _react2['default'].createElement('img', { src: this.props.image }),
 	        _react2['default'].createElement(
-	          'span',
-	          null,
-	          this.props.title
+	          'div',
+	          { className: 'text' },
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            this.props.title
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            'Stars:',
+	            rows
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            'Year:',
+	            this.props.year
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            null,
+	            this.props.certificate
+	          )
 	        )
 	      );
 	    }
