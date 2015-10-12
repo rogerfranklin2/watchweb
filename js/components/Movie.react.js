@@ -21,15 +21,20 @@ class Movie extends React.Component {
   }
 
   render(){
+    var stars = [];
+    for (var i=0; i < this.state.movie.rating; i++) {
+        stars.push(<i className="fa fa-star"></i>);
+    }
+
     return (
       <div>
         <img src={this.state.movie.image} />
-        <div>
+        <div className="container">
           <h3>{this.state.movie.title}</h3>
-          <div>
+          <div className="movie-details">
             <span>{this.state.movie.year}</span>
             <span>{this.state.movie.duration}</span>
-            <span>{this.state.movie.rating}</span>
+            <span>{ stars }</span>
           </div>
           <div>
             {this.state.movie.blurb}
