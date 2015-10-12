@@ -1,17 +1,24 @@
 import React from 'react'
 
 import api from '../api/api'
+import FavoritesStore from '../stores/favoritesStore'
+import FavoriteActions from '../actions/favoriteActions'
 
 class Movie extends React.Component {
   constructor(){
     super()
     this.state = {
-      movie: ''
+      movie: '',
+      liked: ''
     }
+    this.onChange = this.onChange.bind(this)
   }
 
+
   componentDidMount(){
-    api.getMovie(this.props.params.movieid,
+    FavoritesStore.listen(this.onChange);
+    this.setState(FavoritesStore.getState());
+   api.getMovie(this.props.params.movieid,
       (data)=> {
         this.setState({movie: data})
       },
@@ -29,6 +36,7 @@ class Movie extends React.Component {
     return (
       <div>
         <img src={this.state.movie.image} />
+        <div className="like" onClick={this.likeMovie}>{this.state.liked ? <i className="fa fa-heart"></i> : <i className="fa fa-heart-o"></i>}</div>
         <div className="container">
           <h3>{this.state.movie.title}</h3>
           <div className="movie-details">
@@ -42,6 +50,14 @@ class Movie extends React.Component {
         </div>
       </div>
     )
+  }
+
+  onChange(state){
+    this.setState(state)
+  }
+
+  likeMovie(){
+    FavoriteActions.likeMovie()
   }
 }
 
